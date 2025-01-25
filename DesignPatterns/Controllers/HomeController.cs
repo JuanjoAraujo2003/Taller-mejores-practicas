@@ -1,4 +1,6 @@
-﻿using DesignPatterns.Models;
+﻿using DesignPatterns.Factories;
+using DesignPatterns.ModelBuilders;
+using DesignPatterns.Models;
 using DesignPatterns.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -32,17 +34,36 @@ namespace DesignPatterns.Controllers
             return View(model);
         }
 
+        private CarFactory chooseFactory(string vehicle)
+        {
+            switch (vehicle)
+            {
+                case "Mustang":
+                    return new FordMustangFactory();
+                case "Explorer":
+                    return new FordExplorerFactory();
+                case "Escape":
+                    return new FordEscapeFactory();
+                default:
+                    throw new Exception("Invalid vehicle");
+
+            }
+        }
+
         [HttpGet]
         public IActionResult AddMustang()
         {
-            _vehicleRepository.AddVehicle(new Car("red","Ford","Mustang"));
+            CarFactory factory = chooseFactory("Mustang");
+            _vehicleRepository.AddVehicle(factory.Create());
             return Redirect("/");
         }
 
         [HttpGet]
         public IActionResult AddExplorer()
         {
-            _vehicleRepository.AddVehicle(new Car("red", "Ford", "Explorer"));
+
+            CarFactory factory = chooseFactory("Explorer");
+            _vehicleRepository.AddVehicle(factory.Create());
             return Redirect("/");
         }
 
