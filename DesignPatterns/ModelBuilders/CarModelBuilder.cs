@@ -3,6 +3,7 @@ using DesignPatterns.Models;
 
 namespace DesignPatterns.ModelBuilders
 {
+    // La clase CarModelBuilder es una clase que se encarga de construir un objeto de tipo Car
     public class CarModelBuilder
     {
         private string color = "red";

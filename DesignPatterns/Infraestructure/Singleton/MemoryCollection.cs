@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace DesignPatterns.Infraestructure.Singleton
 {
+    // Aplicacion de Singleton
     public class MemoryCollection
     {
         private static MemoryCollection _instance;
